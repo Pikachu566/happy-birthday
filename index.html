@@ -1,1 +1,206 @@
-1
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #4682B4; /* Biru Laut */
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+            color: white; /* Changed to white */
+        }
+        #bgImage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('wallpaper-love.jpg'); /* Replace with your JPG file path */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        #date {
+            font-size: 2em;
+            color: white; /* Changed to white */
+            text-shadow: 2px 2px 4px black; /* Added shadow */
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.0);
+            border-radius: 10px;
+        }
+        .container {
+            font-size: 2.5em;
+            color: white; /* Changed to white */
+            text-shadow: 2px 2px 4px black; /* Added shadow */
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.0);
+            border-radius: 10px;
+            display: inline-block;
+            text-align: center;
+        }
+        .balloon {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            color: white; /* Changed to white */
+            text-shadow: 2px 2px 4px black; /* Added shadow */
+            font-size: 1.2em;
+        }
+        .balloon:hover {
+            animation-play-state: paused;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+        #typed {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white; /* Changed to white */
+            text-shadow: 2px 2px 4px black; /* Added shadow */
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.0);
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .text {
+            color: white; /* Text color already white */
+            text-shadow: 2px 2px 4px black; /* Added shadow */
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .highlight-box {
+            background-color: #51c0e8; /* Background remains the same */
+            color: white; /* Text color already white */
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px black; /* Added shadow */
+        }
+        /* Media query for desktop */
+        @media only screen and (min-width: 768px) {
+            .container {
+                font-size: 2.5em;
+                margin-bottom: 30px;
+            }
+            #typed {
+                font-size: 1.2em;
+            }
+            .container {
+                text-align: center;
+            }
+        }
+        /* Media query for mobile */
+        @media only screen and (max-width: 767px) {
+            .container {
+                font-size: 2em;
+                text-align: center;
+            }
+            #typed {
+                font-size: 1em;
+            }
+        }
+        /* Link active state */
+        .container a:active {
+            color: black;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="typed-strings">
+            <p>I Love You</p>
+        </div>
+        <span id="typed"></span>
+    </div>
+    <div id="bgImage"></div>
+    <div id="date">🎉01/01/1999🎉</div>
+    <div class="container">
+        <span class="balloon">H</span>
+        <span class="balloon">A</span>
+        <span class="balloon">P</span>
+        <span class="balloon">P</span>
+        <span class="balloon">Y</span>
+        <div class="balloon-container">
+            <span class="balloon">B</span>
+            <span class="balloon">I</span>
+            <span class="balloon">R</span>
+            <span class="balloon">T</span>
+            <span class="balloon">H</span>
+            <span class="balloon">D</span>
+            <span class="balloon">A</span>
+            <span class="balloon">Y</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="highlight-box">Partner Name</div>
+    </div>
+    <div class="text">
+        <p>Happy Birthday To You</p>
+    </div>
+    <script>
+        var options = {
+            stringsElement: '#typed-strings',
+            typeSpeed: 50,
+            backSpeed: 50,
+            backDelay: 2000,
+            startDelay: 1000,
+            loop: true,
+        };
+        var typed = new Typed('#typed', options);
+
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * 100 + 'vw';
+            firework.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(firework);
+            setTimeout(() => {
+                firework.remove();
+            }, 1500);
+        }
+        setInterval(createFirework, 500);
+
+        window.onload = function() {
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = "Happy Birthday";
+            msg.lang = 'ms-MY';
+
+            // Menunggu hingga suara tersedia
+            speechSynthesis.onvoiceschanged = function() {
+                var voices = speechSynthesis.getVoices();
+                msg.voice = voices.find(function(voice) {
+                    return voice.name === 'Google Bahasa Malaysia';
+                });
+
+                window.speechSynthesis.speak(msg);
+            };
+
+            // Mengaktifkan suara saat pautan ditekan di perangkat mobile
+            document.addEventListener('touchstart', function() {
+                window.speechSynthesis.speak(msg);
+            });
+        }
+    </script>
+</body>
+</html>
